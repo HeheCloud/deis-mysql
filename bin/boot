@@ -24,7 +24,9 @@ done
 # wait until etcd has discarded potentially stale values
 sleep $((ETCD_TTL+1))
 
-/docker-entrypoint.sh mysqld &
+/app/bin/init mysqld
+
+mysqld &
 
 echo "deis-mysql: mysql is running..."
 
