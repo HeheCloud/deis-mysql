@@ -24,18 +24,7 @@ done
 # wait until etcd has discarded potentially stale values
 sleep $((ETCD_TTL+1))
 
-mysqld &
-
-SERVICE_PID=$!
-
-# smart shutdown on SIGINT and SIGTERM
-function on_exit() {
-    kill -TERM $SERVICE_PID
-    wait $SERVICE_PID 2>/dev/null
-    exit 0
-}
-trap on_exit INT TERM
-
+/docker-entrypoint.sh mysqld &
 
 echo "deis-mysql: mysql is running..."
 
