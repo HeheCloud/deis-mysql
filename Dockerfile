@@ -17,6 +17,7 @@ ENV TERM xterm
 
 ADD . /app
 
+RUN chmod +x /app/bin/init
 RUN chmod +x /app/bin/boot
 
 CMD ["/app/bin/boot"]

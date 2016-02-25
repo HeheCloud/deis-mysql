@@ -5,7 +5,7 @@ After=deis-store-volume.service
 
 [Service]
 EnvironmentFile=/etc/environment
-Environment=IMAGE=daocloud.io/cloudmario/deis-mysql:v1.0.1
+Environment=IMAGE=daocloud.io/cloudmario/deis-mysql:v1.0.2
 TimeoutStartSec=20m
 ExecStartPre=/bin/sh -c "docker history $IMAGE >/dev/null 2>&1 || flock -w 1200 /var/run/lock/mysql-pull docker pull $IMAGE"
 ExecStartPre=/bin/sh -c "docker inspect deis-mysql >/dev/null 2>&1 && docker rm -f deis-mysql >/dev/null 2>&1 || true"
