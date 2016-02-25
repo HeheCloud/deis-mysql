@@ -47,6 +47,9 @@ if [[ ! -z $EXTERNAL_PORT ]]; then
 
   set +e
 
+  # wait for the service to become available on PORT
+  until mysqladmin -uroot -p$MYSQL_ROOT_PASSWORD ping >/dev/null 2>&1; do sleep 1; done
+
   # while the port is listening, publish to etcd
   while [[ ! -z $(netstat -lnt | awk "\$6 == \"LISTEN\" && \$4 ~ \".$PORT\" && \$1 ~ \"$PROTO.?\"") ]] ; do
     etcdctl --no-sync -C "$ETCD" set "$ETCD_PATH/host" "$HOST" --ttl "$ETCD_TTL" >/dev/null
