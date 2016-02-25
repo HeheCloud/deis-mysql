@@ -1,6 +1,8 @@
 FROM mariadb:10.1
 MAINTAINER Cloud Mario <smcz@qq.com>
 
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 # install etcdctl
 RUN curl -sSL -o /usr/local/bin/etcdctl http://sinacloud.net/hehe/etcd/etcdctl-v0.4.9 \
 	&& chmod +x /usr/local/bin/etcdctl
